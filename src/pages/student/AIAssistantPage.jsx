@@ -1,0 +1,264 @@
+import React, { useState, useRef, useEffect } from 'react'
+import { Brain, Send, Lightbulb, BookOpen, Calculator, Beaker, Globe, MessageCircle, Sparkles } from 'lucide-react'
+
+function AIAssistantPage() {
+  const [messages, setMessages] = useState([
+    {
+      id: 1,
+      type: 'assistant',
+      content: 'Hello! I\'m your AI Study Assistant. I can help you with homework, explain concepts, generate practice questions, and provide study tips. What would you like help with today?',
+      timestamp: new Date()
+    }
+  ])
+  const [inputMessage, setInputMessage] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
+  const messagesEndRef = useRef(null)
+
+  const quickActions = [
+    { icon: Calculator, label: 'Math Help', query: 'Help me solve a math problem' },
+    { icon: Beaker, label: 'Science Concepts', query: 'Explain a science concept' },
+    { icon: BookOpen, label: 'Study Tips', query: 'Give me study tips' },
+    { icon: Globe, label: 'History Facts', query: 'Tell me about a historical event' }
+  ]
+
+  const subjects = [
+    { name: 'Mathematics', icon: '?', color: 'blue' },
+    { name: 'Science', icon: '??', color: 'green' },
+    { name: 'English', icon: '??', color: 'purple' },
+    { name: 'History', icon: '???', color: 'orange' },
+    { name: 'Geography', icon: '??', color: 'teal' }
+  ]
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const generateAIResponse = (userQuery) => {
+    // Simulated AI responses based on keywords
+    const query = userQuery.toLowerCase()
+    
+    if (query.includes('math') || query.includes('solve') || query.includes('calculate')) {
+      return "I'd be happy to help with math! Please share the specific problem you're working on, and I'll guide you through the solution step by step. Remember, understanding the process is more important than just getting the answer!"
+    }
+    
+    if (query.includes('science') || query.includes('experiment') || query.includes('concept')) {
+      return "Science is fascinating! What specific concept would you like me to explain? I can break down complex ideas into simple, easy-to-understand explanations with real-world examples."
+    }
+    
+    if (query.includes('study') || query.includes('tips') || query.includes('how to')) {
+      return "Here are some proven study tips:\n\n1. Use the Pomodoro Technique (25 min focus + 5 min break)\n2. Create mind maps for visual learning\n3. Teach concepts to others to reinforce understanding\n4. Review material within 24 hours of learning\n5. Take regular breaks to maintain focus\n\nWhich technique would you like to know more about?"
+    }
+    
+    if (query.includes('history') || query.includes('event') || query.includes('date')) {
+      return "History helps us understand the present! What historical period or event interests you? I can provide context, key figures, and the impact it had on our world today."
+    }
+    
+    if (query.includes('essay') || query.includes('write') || query.includes('paragraph')) {
+      return "Writing a strong essay involves:\n\n1. Start with a clear thesis statement\n2. Organize ideas into paragraphs (one main idea per paragraph)\n3. Use evidence to support your points\n4. Write a strong conclusion that ties everything together\n\nWhat topic are you writing about?"
+    }
+    
+    if (query.includes('exam') || query.includes('test') || query.includes('prepare')) {
+      return "Exam preparation strategies:\n\n? Start reviewing 2-3 weeks before\n? Create a study schedule\n? Practice with past papers\n? Focus on weak areas\n? Get enough sleep before the exam\n? Stay calm and confident\n\nWhich subject exam are you preparing for?"
+    }
+    
+    // Default response
+    return "That's an interesting question! Could you provide more details so I can give you a more specific answer? I\'m here to help with homework, explain concepts, generate practice questions, or provide study guidance."
+  }
+
+  const handleSendMessage = () => {
+    if (inputMessage.trim()) {
+      // Add user message
+      const userMessage = {
+        id: Date.now(),
+        type: 'user',
+        content: inputMessage,
+        timestamp: new Date()
+      }
+      
+      setMessages(prev => [...prev, userMessage])
+      setInputMessage('')
+      setIsTyping(true)
+      
+      // Simulate AI thinking time
+      setTimeout(() => {
+        const aiResponse = {
+          id: Date.now() + 1,
+          type: 'assistant',
+          content: generateAIResponse(inputMessage),
+          timestamp: new Date()
+        }
+        
+        setMessages(prev => [...prev, aiResponse])
+        setIsTyping(false)
+      }, 1500)
+    }
+  }
+
+  const handleQuickAction = (query) => {
+    setInputMessage(query)
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
+  return (
+    <div className="min-h-screen p-8">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-xl">
+              <Brain className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold text-white">AI Study Assistant</h1>
+              <p className="text-white/70 text-lg">Your personal learning companion</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-white/70 text-sm">Developed by Hansraj</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Sidebar */}
+          <div className="space-y-4">
+            {/* Quick Actions */}
+            <div className="glass-effect rounded-2xl p-6 border border-white/10">
+              <h3 className="text-white font-semibold mb-4 flex items-center space-x-2">
+                <Sparkles className="w-5 h-5 text-yellow-400" />
+                <span>Quick Help</span>
+              </h3>
+              <div className="space-y-2">
+                {quickActions.map((action, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleQuickAction(action.query)}
+                    className="w-full bg-white/5 hover:bg-white/10 text-white px-4 py-3 rounded-lg transition-all flex items-center space-x-3 text-left"
+                  >
+                    <action.icon className="w-5 h-5 text-purple-400" />
+                    <span className="text-sm font-medium">{action.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Subjects */}
+            <div className="glass-effect rounded-2xl p-6 border border-white/10">
+              <h3 className="text-white font-semibold mb-4">Subjects</h3>
+              <div className="space-y-2">
+                {subjects.map((subject, index) => (
+                  <button
+                    key={index}
+                    className={`w-full bg-${subject.color}-500/20 hover:bg-${subject.color}-500/30 text-white px-4 py-2 rounded-lg transition-all flex items-center space-x-2`}
+                  >
+                    <span className="text-xl">{subject.icon}</span>
+                    <span className="text-sm font-medium">{subject.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Tips */}
+            <div className="glass-effect rounded-2xl p-6 border border-yellow-500/30 bg-yellow-500/5">
+              <div className="flex items-start space-x-3">
+                <Lightbulb className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="text-yellow-400 font-semibold mb-2">Pro Tip</h4>
+                  <p className="text-white/80 text-sm">
+                    Be specific with your questions! The more details you provide, the better I can help you understand the concept.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Chat Area */}
+          <div className="lg:col-span-3 glass-effect rounded-2xl border border-white/10 flex flex-col" style={{ height: 'calc(100vh - 250px)' }}>
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] rounded-2xl p-4 ${
+                      message.type === 'user'
+                        ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
+                        : 'bg-white/10 text-white'
+                    }`}
+                  >
+                    {message.type === 'assistant' && (
+                      <div className="flex items-center space-x-2 mb-2">
+                        <Brain className="w-5 h-5 text-purple-400" />
+                        <span className="text-sm font-semibold text-purple-400">AI Assistant</span>
+                      </div>
+                    )}
+                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    <p className="text-xs opacity-70 mt-2">
+                      {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+              
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-white/10 rounded-2xl p-4">
+                    <div className="flex items-center space-x-2">
+                      <Brain className="w-5 h-5 text-purple-400" />
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <div className="p-6 border-t border-white/10">
+              <div className="flex items-end space-x-3">
+                <div className="flex-1">
+                  <textarea
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Ask me anything about your studies..."
+                    className="w-full bg-white/10 text-white px-4 py-3 rounded-xl border border-white/20 focus:outline-none focus:border-purple-400 resize-none"
+                    rows="2"
+                  />
+                </div>
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!inputMessage.trim()}
+                  className="bg-gradient-to-br from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-white p-4 rounded-xl transition-all"
+                >
+                  <Send className="w-6 h-6" />
+                </button>
+              </div>
+              <p className="text-white/50 text-xs mt-2 text-center">
+                Press Enter to send ? Shift+Enter for new line
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default AIAssistantPage
