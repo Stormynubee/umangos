@@ -201,7 +201,6 @@ src/
 10. 🏆 **Achievements** - XP, badges, leaderboard
 11. 📊 **Analytics** - Performance insights
 12. ⚙️ **Settings** - Preferences
-
 ## ⚠️ IMPORTANT NOTES
 
 ### Emotion Detection Fix

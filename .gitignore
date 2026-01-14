@@ -26,3 +26,4 @@ dist-ssr
 # Face-api.js models (download separately)
 public/models/*.json
 public/models/*-shard*
+.vercel
