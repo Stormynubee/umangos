@@ -7,7 +7,7 @@ function SplashScreen({ onContinue }) {
 
   useEffect(() => {
     setShowContent(true)
-    
+
     // Generate random particles
     const newParticles = Array.from({ length: 20 }, (_, i) => ({
       id: i,
@@ -47,12 +47,12 @@ function SplashScreen({ onContinue }) {
 
       {/* Main Content */}
       <div className={`relative z-10 text-center space-y-12 px-6 transition-all duration-1000 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        
+
         {/* Floating Icons Ring */}
         <div className="relative w-48 h-48 mx-auto mb-8">
           <div className="absolute inset-0 rounded-full border-4 border-white/20 animate-spin-slow" />
           <div className="absolute inset-4 rounded-full border-2 border-white/30 animate-spin-reverse" />
-          
+
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-float">
             <Brain className="w-12 h-12 text-white drop-shadow-glow" />
           </div>
@@ -65,7 +65,7 @@ function SplashScreen({ onContinue }) {
           <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 animate-float animation-delay-3000">
             <Users className="w-10 h-10 text-blue-300 drop-shadow-glow" />
           </div>
-          
+
           {/* Center Logo */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative">
@@ -78,12 +78,12 @@ function SplashScreen({ onContinue }) {
         {/* Title with Gradient Text */}
         <div className="space-y-4">
           <div className="relative inline-block">
-            <h1 className="text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-purple-200 tracking-tight animate-text-shimmer">
+            <h1 className="text-8xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-200 to-purple-200 tracking-tight animate-text-shimmer py-6 pb-8 leading-normal">
               UmangOS
             </h1>
             <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 opacity-30 blur-2xl animate-pulse-slow" />
           </div>
-          
+
           <p className="text-2xl md:text-3xl text-white/90 font-light max-w-3xl mx-auto animate-slide-up animation-delay-500">
             Student–Teacher Wellbeing & Institutional Operating System
           </p>
@@ -119,7 +119,7 @@ function SplashScreen({ onContinue }) {
               <Zap className="w-6 h-6" />
             </span>
           </button>
-          
+
           <p className="text-white/60 text-sm animate-pulse">Click to begin your wellbeing journey</p>
         </div>
 
@@ -143,9 +143,9 @@ function SplashScreen({ onContinue }) {
       {/* Bottom Wave Animation */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg className="w-full h-32" viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg">
-          <path 
-            fill="rgba(255,255,255,0.05)" 
-            fillOpacity="1" 
+          <path
+            fill="rgba(255,255,255,0.05)"
+            fillOpacity="1"
             d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
             className="animate-wave"
           />

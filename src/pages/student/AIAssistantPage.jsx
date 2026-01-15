@@ -22,11 +22,11 @@ function AIAssistantPage() {
   ]
 
   const subjects = [
-    { name: 'Mathematics', icon: '?', color: 'blue' },
-    { name: 'Science', icon: '??', color: 'green' },
-    { name: 'English', icon: '??', color: 'purple' },
-    { name: 'History', icon: '???', color: 'orange' },
-    { name: 'Geography', icon: '??', color: 'teal' }
+    { name: 'Mathematics', icon: <Calculator className="w-5 h-5" />, color: 'blue' },
+    { name: 'Science', icon: <Beaker className="w-5 h-5" />, color: 'green' },
+    { name: 'English', icon: <BookOpen className="w-5 h-5" />, color: 'purple' },
+    { name: 'History', icon: <Globe className="w-5 h-5" />, color: 'orange' },
+    { name: 'Geography', icon: <Globe className="w-5 h-5" />, color: 'teal' }
   ]
 
   useEffect(() => {
@@ -40,66 +40,76 @@ function AIAssistantPage() {
   const generateAIResponse = (userQuery) => {
     // Simulated AI responses based on keywords
     const query = userQuery.toLowerCase()
-    
-    if (query.includes('math') || query.includes('solve') || query.includes('calculate')) {
-      return "I'd be happy to help with math! Please share the specific problem you're working on, and I'll guide you through the solution step by step. Remember, understanding the process is more important than just getting the answer!"
+
+    // Greetings
+    if (query.match(/^(hi|hello|hey|greetings)/)) {
+      return "Hello there! 👋 I'm ready to help you study. What subject are we tackling today?"
     }
-    
-    if (query.includes('science') || query.includes('experiment') || query.includes('concept')) {
-      return "Science is fascinating! What specific concept would you like me to explain? I can break down complex ideas into simple, easy-to-understand explanations with real-world examples."
+
+    if (query.includes('math') || query.includes('solve') || query.includes('calculate') || query.match(/\d+\s*[\+\-\*\/]\s*\d+/)) {
+      return "I see a math problem! 🧮 \n\nTo solve this:\n1. Identify the operator\n2. Break it down step-by-step\n3. Check your work\n\n(Example: For 5x + 3 = 18, subtract 3 first, then divide by 5 to get x = 3). \n\nShare the specific numbers and I'll help you solve it!"
     }
-    
-    if (query.includes('study') || query.includes('tips') || query.includes('how to')) {
-      return "Here are some proven study tips:\n\n1. Use the Pomodoro Technique (25 min focus + 5 min break)\n2. Create mind maps for visual learning\n3. Teach concepts to others to reinforce understanding\n4. Review material within 24 hours of learning\n5. Take regular breaks to maintain focus\n\nWhich technique would you like to know more about?"
+
+    if (query.includes('science') || query.includes('physics') || query.includes('chemistry') || query.includes('biology')) {
+      return "Science time! 🧪 \nWhether it's Newton's laws, chemical bonds, or cell structure, I can help. \n\nTry asking: 'Explain photosynthesis' or 'What is Newton's first law?'"
     }
-    
-    if (query.includes('history') || query.includes('event') || query.includes('date')) {
-      return "History helps us understand the present! What historical period or event interests you? I can provide context, key figures, and the impact it had on our world today."
+
+    if (query.includes('history') || query.includes('war') || query.includes('empire') || query.includes('king') || query.includes('queen')) {
+      return "Travel back in time! 🕰️ \nI can help with dates, causes, and effects of major historical events. \n\nExample: 'Why did WWI start?' or 'Who was Ashoka?'"
     }
-    
-    if (query.includes('essay') || query.includes('write') || query.includes('paragraph')) {
-      return "Writing a strong essay involves:\n\n1. Start with a clear thesis statement\n2. Organize ideas into paragraphs (one main idea per paragraph)\n3. Use evidence to support your points\n4. Write a strong conclusion that ties everything together\n\nWhat topic are you writing about?"
+
+    if (query.includes('study') || query.includes('tips') || query.includes('focus') || query.includes('tired')) {
+      return "Here are some proven study boost tips: 🚀\n\n1. **Pomodoro:** Study 25m, Break 5m.\n2. **Active Recall:**  Test yourself instead of just re-reading.\n3. **Feynman Technique:** Explain the concept simply as if to a child.\n4. **Hydrate:** Drink water to keep your brain sharp!"
     }
-    
-    if (query.includes('exam') || query.includes('test') || query.includes('prepare')) {
-      return "Exam preparation strategies:\n\n? Start reviewing 2-3 weeks before\n? Create a study schedule\n? Practice with past papers\n? Focus on weak areas\n? Get enough sleep before the exam\n? Stay calm and confident\n\nWhich subject exam are you preparing for?"
+
+    if (query.includes('essay') || query.includes('write') || query.includes('grammar')) {
+      return "Writing Assistant mode: ✍️\n\n- **Thesis:** Make a clear claim.\n- **Body:** Support with evidence.\n- **Conclusion:** Summarize and reflect.\n\nNeed help with a specific topic? Just paste your draft!"
     }
-    
-    // Default response
-    return "That's an interesting question! Could you provide more details so I can give you a more specific answer? I\'m here to help with homework, explain concepts, generate practice questions, or provide study guidance."
+
+    if (query.length < 5) {
+      return "Could you elaborate a bit? I'm listening! 👂"
+    }
+
+    // Dynamic Default response
+    const defaults = [
+      "That's an interesting topic! 🧐 Could you tell me more so I can give the best answer?",
+      "I'm not 100% sure about that specifically, but I can help you research it! 📚 What are the key terms?",
+      "Great question. To give you the best help, could you clarify which subject this falls under? (Math, Science, History, etc.)"
+    ]
+    return defaults[Math.floor(Math.random() * defaults.length)]
   }
 
-  const handleSendMessage = () => {
-    if (inputMessage.trim()) {
+  const handleSendMessage = (text = inputMessage) => {
+    if (text.trim()) {
       // Add user message
       const userMessage = {
         id: Date.now(),
         type: 'user',
-        content: inputMessage,
+        content: text,
         timestamp: new Date()
       }
-      
+
       setMessages(prev => [...prev, userMessage])
       setInputMessage('')
       setIsTyping(true)
-      
+
       // Simulate AI thinking time
       setTimeout(() => {
         const aiResponse = {
           id: Date.now() + 1,
           type: 'assistant',
-          content: generateAIResponse(inputMessage),
+          content: generateAIResponse(text),
           timestamp: new Date()
         }
-        
+
         setMessages(prev => [...prev, aiResponse])
         setIsTyping(false)
-      }, 1500)
+      }, 1000 + Math.random() * 1000)
     }
   }
 
   const handleQuickAction = (query) => {
-    setInputMessage(query)
+    handleSendMessage(query)
   }
 
   const handleKeyPress = (e) => {
@@ -191,11 +201,10 @@ function AIAssistantPage() {
                   className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-2xl p-4 ${
-                      message.type === 'user'
-                        ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
-                        : 'bg-white/10 text-white'
-                    }`}
+                    className={`max-w-[80%] rounded-2xl p-4 ${message.type === 'user'
+                      ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
+                      : 'bg-white/10 text-white'
+                      }`}
                   >
                     {message.type === 'assistant' && (
                       <div className="flex items-center space-x-2 mb-2">
@@ -210,7 +219,7 @@ function AIAssistantPage() {
                   </div>
                 </div>
               ))}
-              
+
               {isTyping && (
                 <div className="flex justify-start">
                   <div className="bg-white/10 rounded-2xl p-4">
@@ -225,7 +234,7 @@ function AIAssistantPage() {
                   </div>
                 </div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
 

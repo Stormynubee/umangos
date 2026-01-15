@@ -23,31 +23,31 @@ function PermissionScreen({ onPermissionsGranted, onPermissionsDenied, isRetry =
   const requestPermissions = async () => {
     setRequesting(true)
     setError('')
-    
+
     // Initialize audio on user interaction
     audioManager.handleUserInteraction()
     audioManager.playSound('click')
-    
+
     try {
       console.log('Requesting camera and microphone permissions...')
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: 1280, height: 720 },
         audio: true
       })
-      
+
       console.log('Permissions granted!')
       setCameraGranted(true)
       setMicGranted(true)
-      
+
       stream.getTracks().forEach(track => track.stop())
-      
+
       audioManager.playSound('success')
-      
+
       setTimeout(() => {
         console.log('Calling onPermissionsGranted...')
         onPermissionsGranted()
       }, 1000)
-      
+
     } catch (err) {
       console.error('Permission error:', err)
       setCameraGranted(false)
@@ -104,7 +104,7 @@ function PermissionScreen({ onPermissionsGranted, onPermissionsDenied, isRetry =
 
           <div className="space-y-3">
             <h1 className="text-5xl font-bold text-white drop-shadow-lg">
-              {isRetry ? '?? Permissions Required' : '?? Welcome to UmangOS'}
+              {isRetry ? '👋 Permissions Required' : '👋 Welcome to UmangOS'}
             </h1>
 
             <p className="text-2xl text-white/90 font-light max-w-xl mx-auto">
@@ -113,11 +113,10 @@ function PermissionScreen({ onPermissionsGranted, onPermissionsDenied, isRetry =
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className={`relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-500 ${
-              cameraGranted 
-                ? 'bg-green-500/20 border-2 border-green-400/50 shadow-lg shadow-green-400/20' 
+            <div className={`relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-500 ${cameraGranted
+                ? 'bg-green-500/20 border-2 border-green-400/50 shadow-lg shadow-green-400/20'
                 : 'bg-white/10 border-2 border-white/20 hover:border-white/40'
-            }`}>
+              }`}>
               <div className="relative z-10 flex items-start space-x-4">
                 {cameraGranted ? (
                   <div className="bg-green-400 p-2 rounded-xl">
@@ -140,11 +139,10 @@ function PermissionScreen({ onPermissionsGranted, onPermissionsDenied, isRetry =
               )}
             </div>
 
-            <div className={`relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-500 ${
-              micGranted 
-                ? 'bg-purple-500/20 border-2 border-purple-400/50 shadow-lg shadow-purple-400/20' 
+            <div className={`relative overflow-hidden rounded-2xl p-6 text-left transition-all duration-500 ${micGranted
+                ? 'bg-purple-500/20 border-2 border-purple-400/50 shadow-lg shadow-purple-400/20'
                 : 'bg-white/10 border-2 border-white/20 hover:border-white/40'
-            }`}>
+              }`}>
               <div className="relative z-10 flex items-start space-x-4">
                 {micGranted ? (
                   <div className="bg-purple-400 p-2 rounded-xl">
@@ -178,7 +176,7 @@ function PermissionScreen({ onPermissionsGranted, onPermissionsDenied, isRetry =
                   <span>Privacy Guarantee</span>
                 </h4>
                 <p className="text-white/90 text-sm leading-relaxed">
-                  All processing happens <span className="font-bold text-blue-200">locally in your browser</span>. 
+                  All processing happens <span className="font-bold text-blue-200">locally in your browser</span>.
                   No data is uploaded to any server. Your privacy is <span className="font-bold text-green-300">100% guaranteed</span>.
                 </p>
               </div>
@@ -199,18 +197,15 @@ function PermissionScreen({ onPermissionsGranted, onPermissionsDenied, isRetry =
             <button
               onClick={requestPermissions}
               disabled={requesting}
-              className={`group relative w-full py-6 rounded-2xl font-bold text-xl overflow-hidden transition-all duration-300 ${
-                requesting
+              className={`group relative w-full py-6 rounded-2xl font-bold text-xl overflow-hidden transition-all duration-300 ${requesting
                   ? 'bg-white/50 cursor-not-allowed'
                   : 'bg-white hover:scale-105 active:scale-95 shadow-2xl hover:shadow-white/50'
-              }`}
+                }`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 ${
-                !requesting && 'group-hover:opacity-100'
-              }`} />
-              <span className={`relative z-10 flex items-center justify-center space-x-3 transition-colors duration-300 ${
-                requesting ? 'text-purple-400' : 'text-purple-600 group-hover:text-white'
-              }`}>
+              <div className={`absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 ${!requesting && 'group-hover:opacity-100'
+                }`} />
+              <span className={`relative z-10 flex items-center justify-center space-x-3 transition-colors duration-300 ${requesting ? 'text-purple-400' : 'text-purple-600 group-hover:text-white'
+                }`}>
                 {requesting ? (
                   <>
                     <div className="w-6 h-6 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />

@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Shield, Users, TrendingUp, AlertTriangle, Database, Settings, BarChart2, Activity, FileText } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend } from 'recharts'
+import AdminAnalyticsPage from '../pages/admin/AdminAnalyticsPage'
+import AdminUserManagementPage from '../pages/admin/AdminUserManagementPage'
+import AdminReportsPage from '../pages/admin/AdminReportsPage'
+import AdminAlertsPage from '../pages/admin/AdminAlertsPage'
+import AdminSettingsPage from '../pages/admin/AdminSettingsPage'
 
 function AdminDashboardHome({ userName }) {
   const systemStats = {
@@ -52,7 +57,7 @@ function AdminDashboardHome({ userName }) {
 
   return (
     <div className="min-h-screen p-8">
-      
+
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-6">
           <div className="flex items-center justify-between">
@@ -64,8 +69,7 @@ function AdminDashboardHome({ userName }) {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-white/70 text-sm">Developed by Hansraj</p>
-              <p className="text-white text-sm">{new Date().toLocaleDateString()}</p>
+              <p className="text-white/90 text-sm font-medium">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </div>
 
@@ -130,7 +134,7 @@ function AdminDashboardHome({ userName }) {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="month" stroke="#fff" tick={{ fill: '#fff' }} />
                   <YAxis stroke="#fff" tick={{ fill: '#fff' }} />
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px' }}
                   />
                   <Legend />
@@ -162,7 +166,7 @@ function AdminDashboardHome({ userName }) {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px' }}
                   />
                 </PieChart>
@@ -194,9 +198,9 @@ function AdminDashboardHome({ userName }) {
                       <td className="py-3 px-4">
                         <div className="flex items-center space-x-2">
                           <div className="w-24 bg-white/20 rounded-full h-2">
-                            <div 
+                            <div
                               className="h-2 rounded-full transition-all"
-                              style={{ 
+                              style={{
                                 width: `${classData.avgWellbeing}%`,
                                 backgroundColor: classData.avgWellbeing > 80 ? '#22c55e' : classData.avgWellbeing > 70 ? '#f59e0b' : '#ef4444'
                               }}
@@ -206,13 +210,12 @@ function AdminDashboardHome({ userName }) {
                         </div>
                       </td>
                       <td className="py-3 px-4">
-                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                          classData.alerts > 5 
-                            ? 'bg-red-500/20 text-red-400' 
-                            : classData.alerts > 2 
+                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${classData.alerts > 5
+                          ? 'bg-red-500/20 text-red-400'
+                          : classData.alerts > 2
                             ? 'bg-yellow-500/20 text-yellow-400'
                             : 'bg-green-500/20 text-green-400'
-                        }`}>
+                          }`}>
                           {classData.alerts} alerts
                         </span>
                       </td>
@@ -234,26 +237,24 @@ function AdminDashboardHome({ userName }) {
               </h3>
               <div className="space-y-3">
                 {alerts.map((alert) => (
-                  <div key={alert.id} className={`rounded-lg p-4 border ${
-                    alert.type === 'high' 
-                      ? 'bg-red-500/10 border-red-500/30' 
-                      : alert.type === 'medium'
+                  <div key={alert.id} className={`rounded-lg p-4 border ${alert.type === 'high'
+                    ? 'bg-red-500/10 border-red-500/30'
+                    : alert.type === 'medium'
                       ? 'bg-yellow-500/10 border-yellow-500/30'
                       : 'bg-blue-500/10 border-blue-500/30'
-                  }`}>
+                    }`}>
                     <div className="flex items-start justify-between">
                       <div>
                         <p className="text-white font-semibold">{alert.class}</p>
                         <p className="text-white/80 text-sm mt-1">{alert.message}</p>
                         <p className="text-white/60 text-xs mt-2">{alert.time}</p>
                       </div>
-                      <span className={`px-2 py-1 rounded text-xs font-semibold uppercase ${
-                        alert.type === 'high' 
-                          ? 'text-red-400' 
-                          : alert.type === 'medium'
+                      <span className={`px-2 py-1 rounded text-xs font-semibold uppercase ${alert.type === 'high'
+                        ? 'text-red-400'
+                        : alert.type === 'medium'
                           ? 'text-yellow-400'
                           : 'text-blue-400'
-                      }`}>
+                        }`}>
                         {alert.type}
                       </span>
                     </div>
@@ -322,11 +323,11 @@ function AdminDashboard({ userName }) {
   return (
     <Routes>
       <Route index element={<AdminDashboardHome userName={userName} />} />
-      <Route path="users" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">User Management coming soon...</p></div></div>} />
-      <Route path="analytics" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">System Analytics coming soon...</p></div></div>} />
-      <Route path="reports" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">Reports coming soon...</p></div></div>} />
-      <Route path="alerts" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">Alerts coming soon...</p></div></div>} />
-      <Route path="settings" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">Settings coming soon...</p></div></div>} />
+      <Route path="users" element={<AdminUserManagementPage />} />
+      <Route path="analytics" element={<AdminAnalyticsPage />} />
+      <Route path="reports" element={<AdminReportsPage />} />
+      <Route path="alerts" element={<AdminAlertsPage />} />
+      <Route path="settings" element={<AdminSettingsPage />} />
     </Routes>
   )
 }

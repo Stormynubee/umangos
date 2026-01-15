@@ -6,7 +6,7 @@ function TimetablePage() {
   const [currentWeek, setCurrentWeek] = useState(0)
 
   const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  
+
   const timetable = {
     Monday: [
       { time: '08:00 - 09:00', subject: 'Mathematics', teacher: 'Mr. Sharma', room: 'Room 301', type: 'core' },
@@ -102,7 +102,7 @@ function TimetablePage() {
   ]
 
   const getClassColor = (type) => {
-    switch(type) {
+    switch (type) {
       case 'core': return 'bg-blue-500/20 border-blue-500/50 text-blue-400'
       case 'elective': return 'bg-purple-500/20 border-purple-500/50 text-purple-400'
       case 'activity': return 'bg-green-500/20 border-green-500/50 text-green-400'
@@ -112,7 +112,7 @@ function TimetablePage() {
   }
 
   const getStatusColor = (status) => {
-    switch(status) {
+    switch (status) {
       case 'completed': return 'text-green-400 bg-green-500/20'
       case 'in-progress': return 'text-yellow-400 bg-yellow-500/20'
       case 'pending': return 'text-gray-400 bg-gray-500/20'
@@ -154,11 +154,10 @@ function TimetablePage() {
               <button
                 key={tab.key}
                 onClick={() => setSelectedView(tab.key)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center space-x-2 ${
-                  selectedView === tab.key
+                className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center space-x-2 ${selectedView === tab.key
                     ? 'bg-indigo-500 text-white'
                     : 'text-white/70 hover:bg-white/10'
-                }`}
+                  }`}
               >
                 <tab.icon className="w-5 h-5" />
                 <span>{tab.label}</span>
@@ -180,7 +179,7 @@ function TimetablePage() {
               <p className="text-center text-white">
                 <span className="text-white/70">Today is </span>
                 <span className="font-bold text-indigo-400">{getCurrentDay()}</span>
-                <span className="text-white/70"> ? Current Week</span>
+                <span className="text-white/70"> • Current Week</span>
               </p>
             </div>
 
@@ -189,17 +188,16 @@ function TimetablePage() {
               <div className="grid grid-cols-1 lg:grid-cols-6 gap-4">
                 {weekDays.map((day, dayIndex) => (
                   <div key={day} className={`${getCurrentDay() === day ? 'ring-2 ring-indigo-500' : ''} rounded-xl overflow-hidden`}>
-                    <div className={`p-4 text-center font-bold ${
-                      getCurrentDay() === day 
-                        ? 'bg-indigo-500 text-white' 
+                    <div className={`p-4 text-center font-bold ${getCurrentDay() === day
+                        ? 'bg-indigo-500 text-white'
                         : 'bg-white/10 text-white/70'
-                    }`}>
+                      }`}>
                       {day}
                     </div>
                     <div className="p-3 space-y-2">
                       {timetable[day].map((slot, index) => (
-                        <div 
-                          key={index} 
+                        <div
+                          key={index}
                           className={`rounded-lg p-3 border transition-all hover:scale-105 ${getClassColor(slot.type)}`}
                         >
                           <div className="flex items-start space-x-2 mb-2">
@@ -208,7 +206,7 @@ function TimetablePage() {
                               <p className="text-xs font-semibold">{slot.time}</p>
                             </div>
                           </div>
-                          
+
                           {slot.type !== 'break' && (
                             <>
                               <p className="font-bold text-sm mb-1">{slot.subject}</p>
@@ -226,7 +224,7 @@ function TimetablePage() {
                               )}
                             </>
                           )}
-                          
+
                           {slot.type === 'break' && (
                             <p className="font-bold text-sm">{slot.subject}</p>
                           )}
@@ -280,7 +278,7 @@ function TimetablePage() {
                       </p>
                     </div>
                   </div>
-                  
+
                   <div className="text-right">
                     <p className="text-3xl font-bold text-white">
                       {Math.round(subject.chapters.reduce((sum, ch) => sum + ch.progress, 0) / subject.chapters.length)}%
@@ -302,14 +300,14 @@ function TimetablePage() {
                         </div>
                         <span className="text-white font-bold text-lg">{chapter.progress}%</span>
                       </div>
-                      
+
                       <div className="w-full bg-white/10 rounded-full h-2">
-                        <div 
+                        <div
                           className={`h-2 rounded-full transition-all duration-500`}
-                          style={{ 
+                          style={{
                             width: `${chapter.progress}%`,
-                            backgroundColor: chapter.status === 'completed' ? '#22c55e' : 
-                                           chapter.status === 'in-progress' ? '#f59e0b' : '#6b7280'
+                            backgroundColor: chapter.status === 'completed' ? '#22c55e' :
+                              chapter.status === 'in-progress' ? '#f59e0b' : '#6b7280'
                           }}
                         />
                       </div>

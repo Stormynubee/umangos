@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Calendar, CheckSquare, Plus, Trash2, Edit, Flag, Clock, Filter, Search, Tag } from 'lucide-react'
+import { Calendar, CheckSquare, Plus, Trash2, Edit, Flag, Clock, Filter, Search, Tag, BookOpen, User, Star } from 'lucide-react'
 
 function PlannerPage() {
   const [selectedView, setSelectedView] = useState('tasks')
@@ -105,7 +105,7 @@ function PlannerPage() {
   }
 
   const handleToggleComplete = (taskId) => {
-    setTasks(tasks.map(task => 
+    setTasks(tasks.map(task =>
       task.id === taskId ? { ...task, completed: !task.completed } : task
     ))
   }
@@ -115,7 +115,7 @@ function PlannerPage() {
   }
 
   const getPriorityColor = (priority) => {
-    switch(priority) {
+    switch (priority) {
       case 'urgent': return 'text-red-400 bg-red-500/20 border-red-500/50'
       case 'high': return 'text-orange-400 bg-orange-500/20 border-orange-500/50'
       case 'medium': return 'text-yellow-400 bg-yellow-500/20 border-yellow-500/50'
@@ -125,11 +125,11 @@ function PlannerPage() {
   }
 
   const getCategoryIcon = (category) => {
-    switch(category) {
-      case 'academic': return '??'
-      case 'personal': return '??'
-      case 'extra': return '??'
-      default: return '??'
+    switch (category) {
+      case 'academic': return <BookOpen className="w-5 h-5 text-blue-400" />
+      case 'personal': return <User className="w-5 h-5 text-green-400" />
+      case 'extra': return <Star className="w-5 h-5 text-yellow-400" />
+      default: return <Tag className="w-5 h-5 text-gray-400" />
     }
   }
 
@@ -143,7 +143,7 @@ function PlannerPage() {
 
   const filteredTasks = tasks.filter(task => {
     const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         task.description.toLowerCase().includes(searchQuery.toLowerCase())
+      task.description.toLowerCase().includes(searchQuery.toLowerCase())
     const matchesPriority = filterPriority === 'all' || task.priority === filterPriority
     const matchesCategory = filterCategory === 'all' || task.category === filterCategory
     return matchesSearch && matchesPriority && matchesCategory
@@ -268,7 +268,7 @@ function PlannerPage() {
                 <input
                   type="text"
                   value={newTask.title}
-                  onChange={(e) => setNewTask({...newTask, title: e.target.value})}
+                  onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   className="w-full bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:border-teal-400"
                   placeholder="Enter task title"
                 />
@@ -277,7 +277,7 @@ function PlannerPage() {
                 <label className="text-white/70 text-sm block mb-2">Category</label>
                 <select
                   value={newTask.category}
-                  onChange={(e) => setNewTask({...newTask, category: e.target.value})}
+                  onChange={(e) => setNewTask({ ...newTask, category: e.target.value })}
                   className="w-full bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:border-teal-400"
                 >
                   <option value="academic" className="bg-gray-900">Academic</option>
@@ -289,7 +289,7 @@ function PlannerPage() {
                 <label className="text-white/70 text-sm block mb-2">Description</label>
                 <textarea
                   value={newTask.description}
-                  onChange={(e) => setNewTask({...newTask, description: e.target.value})}
+                  onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
                   className="w-full bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:border-teal-400"
                   rows="3"
                   placeholder="Enter task description"
@@ -300,7 +300,7 @@ function PlannerPage() {
                 <input
                   type="date"
                   value={newTask.dueDate}
-                  onChange={(e) => setNewTask({...newTask, dueDate: e.target.value})}
+                  onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
                   className="w-full bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:border-teal-400"
                 />
               </div>
@@ -309,7 +309,7 @@ function PlannerPage() {
                 <input
                   type="time"
                   value={newTask.dueTime}
-                  onChange={(e) => setNewTask({...newTask, dueTime: e.target.value})}
+                  onChange={(e) => setNewTask({ ...newTask, dueTime: e.target.value })}
                   className="w-full bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:border-teal-400"
                 />
               </div>
@@ -317,7 +317,7 @@ function PlannerPage() {
                 <label className="text-white/70 text-sm block mb-2">Priority</label>
                 <select
                   value={newTask.priority}
-                  onChange={(e) => setNewTask({...newTask, priority: e.target.value})}
+                  onChange={(e) => setNewTask({ ...newTask, priority: e.target.value })}
                   className="w-full bg-white/10 text-white px-4 py-2 rounded-lg border border-white/20 focus:outline-none focus:border-teal-400"
                 >
                   <option value="urgent" className="bg-gray-900">Urgent</option>
@@ -352,7 +352,7 @@ function PlannerPage() {
               <Clock className="w-6 h-6 text-yellow-400" />
               <span>Pending Tasks ({pendingTasks.length})</span>
             </h3>
-            
+
             {pendingTasks.length === 0 ? (
               <div className="text-center py-12">
                 <CheckSquare className="w-16 h-16 text-white/30 mx-auto mb-4" />
@@ -372,7 +372,7 @@ function PlannerPage() {
                         >
                           {task.completed && <CheckSquare className="w-5 h-5 text-teal-400" />}
                         </button>
-                        
+
                         <div className="flex-1">
                           <div className="flex items-center space-x-3 mb-2">
                             <h4 className="text-white font-semibold text-lg">{task.title}</h4>
@@ -386,9 +386,9 @@ function PlannerPage() {
                               </span>
                             )}
                           </div>
-                          
+
                           <p className="text-white/70 mb-3">{task.description}</p>
-                          
+
                           <div className="flex items-center space-x-4 text-sm text-white/60">
                             <span className="flex items-center space-x-1">
                               <Calendar className="w-4 h-4" />
@@ -398,13 +398,12 @@ function PlannerPage() {
                               <Clock className="w-4 h-4" />
                               <span>{task.dueTime}</span>
                             </span>
-                            <span className={`font-semibold ${
-                              isOverdue ? 'text-red-400' : daysLeft === 0 ? 'text-orange-400' : daysLeft <= 2 ? 'text-yellow-400' : 'text-blue-400'
-                            }`}>
+                            <span className={`font-semibold ${isOverdue ? 'text-red-400' : daysLeft === 0 ? 'text-orange-400' : daysLeft <= 2 ? 'text-yellow-400' : 'text-blue-400'
+                              }`}>
                               {isOverdue ? `${Math.abs(daysLeft)} days overdue` : daysLeft === 0 ? 'Due today' : `${daysLeft} days left`}
                             </span>
                           </div>
-                          
+
                           {task.tags && task.tags.length > 0 && (
                             <div className="flex items-center space-x-2 mt-3">
                               {task.tags.map((tag, index) => (
@@ -415,7 +414,7 @@ function PlannerPage() {
                             </div>
                           )}
                         </div>
-                        
+
                         <button
                           onClick={() => handleDeleteTask(task.id)}
                           className="text-red-400 hover:text-red-300 transition-all"
@@ -437,7 +436,7 @@ function PlannerPage() {
                 <CheckSquare className="w-6 h-6 text-green-400" />
                 <span>Completed Tasks ({completedTasks.length})</span>
               </h3>
-              
+
               <div className="space-y-3">
                 {completedTasks.map(task => (
                   <div key={task.id} className="bg-white/5 rounded-xl p-4 opacity-70">
@@ -448,12 +447,12 @@ function PlannerPage() {
                       >
                         <CheckSquare className="w-5 h-5 text-green-400" />
                       </button>
-                      
+
                       <div className="flex-1">
                         <h4 className="text-white/70 font-semibold line-through">{task.title}</h4>
                         <p className="text-white/50 text-sm">{task.description}</p>
                       </div>
-                      
+
                       <button
                         onClick={() => handleDeleteTask(task.id)}
                         className="text-red-400/50 hover:text-red-300 transition-all"

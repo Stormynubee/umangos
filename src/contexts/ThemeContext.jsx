@@ -83,6 +83,18 @@ export const themes = {
     textPrimary: '#ffffff',
     textSecondary: 'rgba(255, 255, 255, 0.8)',
   },
+  'neo-glass': {
+    name: 'Neo Glass (New)',
+    mode: 'light',
+    primary: '#6366f1',
+    secondary: '#8b5cf6',
+    accent: '#3b82f6',
+    background: '', // Intentionally empty to let CSS variables control the background
+    cardBg: 'rgba(255, 255, 255, 0.65)',
+    cardBorder: 'rgba(255, 255, 255, 0.8)',
+    textPrimary: '#1e293b',
+    textSecondary: '#475569',
+  },
 };
 
 export const ThemeProvider = ({ children }) => {
@@ -90,14 +102,21 @@ export const ThemeProvider = ({ children }) => {
   const [backgroundPattern, setBackgroundPattern] = useState('gradient');
   const [glassEffect, setGlassEffect] = useState(true);
 
+  // Apply cosmic (restored) on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem('umangos_theme');
-    const savedPattern = localStorage.getItem('umangos_bg_pattern');
-    const savedGlass = localStorage.getItem('umangos_glass_effect');
+    document.body.setAttribute('data-theme', 'cosmic');
+  }, []);
 
-    if (savedTheme) setCurrentTheme(savedTheme);
-    if (savedPattern) setBackgroundPattern(savedPattern);
-    if (savedGlass !== null) setGlassEffect(savedGlass === 'true');
+  useEffect(() => {
+    // V3 Storage key to invalidate 'neo-glass' cache and force revert
+    const savedTheme = localStorage.getItem('umangos_theme_v3');
+
+    if (savedTheme) {
+      setCurrentTheme(savedTheme);
+    } else {
+      // Force reset to cosmic if no v3 exists
+      setCurrentTheme('cosmic');
+    }
   }, []);
 
   useEffect(() => {
@@ -110,8 +129,13 @@ export const ThemeProvider = ({ children }) => {
 
     const bodyBg = document.querySelector('body');
     if (bodyBg) {
-      bodyBg.className = 'bg-gradient-to-br ' + theme.background + ' min-h-screen';
-      
+      // If backround is empty (neo-glass), don't apply gradient classes that might conflict with CSS vars
+      if (theme.background) {
+        bodyBg.className = 'bg-gradient-to-br ' + theme.background + ' min-h-screen';
+      } else {
+        bodyBg.className = 'min-h-screen'; // Pure CSS variable background
+      }
+
       if (backgroundPattern === 'dots') {
         bodyBg.style.backgroundImage = 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)';
         bodyBg.style.backgroundSize = '20px 20px';
@@ -119,25 +143,26 @@ export const ThemeProvider = ({ children }) => {
         bodyBg.style.backgroundImage = 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)';
         bodyBg.style.backgroundSize = '30px 30px';
       } else {
-        bodyBg.style.backgroundImage = '';
+        if (backgroundPattern === 'gradient') bodyBg.style.backgroundImage = '';
       }
     }
   }, [currentTheme, backgroundPattern]);
 
   const changeTheme = (themeName) => {
     setCurrentTheme(themeName);
-    localStorage.setItem('umangos_theme', themeName);
+    localStorage.setItem('umangos_theme_v3', themeName);
+    document.body.setAttribute('data-theme', themeName);
   };
 
   const changeBackgroundPattern = (pattern) => {
     setBackgroundPattern(pattern);
-    localStorage.setItem('umangos_bg_pattern', pattern);
+    localStorage.setItem('umangos_bg_pattern_v3', pattern);
   };
 
   const toggleGlassEffect = () => {
     const newValue = !glassEffect;
     setGlassEffect(newValue);
-    localStorage.setItem('umangos_glass_effect', newValue.toString());
+    localStorage.setItem('umangos_glass_effect_v3', newValue.toString());
   };
 
   const value = {

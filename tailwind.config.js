@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#3b82f6',
+        primary: 'var(--accent-color)', // Dynamic accent
         secondary: '#8b5cf6',
         accent: '#ec4899',
       },

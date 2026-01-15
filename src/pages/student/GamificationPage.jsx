@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Award, Trophy, Flame, Star, TrendingUp, Target, Zap, Crown, Medal, Gift } from 'lucide-react'
+import { Award, Trophy, Flame, Star, TrendingUp, Target, Zap, Crown, Medal, Gift, Calendar, Heart } from 'lucide-react'
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
@@ -24,7 +24,7 @@ function GamificationPage() {
       id: 1,
       name: 'Perfect Attendance',
       description: 'Attended 30 consecutive days',
-      icon: '??',
+      icon: <Calendar className="w-12 h-12 text-yellow-400" />,
       rarity: 'gold',
       earned: true,
       earnedDate: '2025-12-01',
@@ -34,7 +34,7 @@ function GamificationPage() {
       id: 2,
       name: 'Top Scorer',
       description: 'Scored 95% or above in 5 tests',
-      icon: '??',
+      icon: <Trophy className="w-12 h-12 text-yellow-400" />,
       rarity: 'legendary',
       earned: true,
       earnedDate: '2025-11-15',
@@ -44,7 +44,7 @@ function GamificationPage() {
       id: 3,
       name: 'Study Warrior',
       description: 'Complete 100 study sessions',
-      icon: '??',
+      icon: <Flame className="w-12 h-12 text-orange-400" />,
       rarity: 'epic',
       earned: true,
       earnedDate: '2025-10-20',
@@ -54,7 +54,7 @@ function GamificationPage() {
       id: 4,
       name: 'Early Bird',
       description: 'Study before 7 AM for 15 days',
-      icon: '??',
+      icon: <Zap className="w-12 h-12 text-blue-400" />,
       rarity: 'rare',
       earned: false,
       progress: 60,
@@ -65,7 +65,7 @@ function GamificationPage() {
       id: 5,
       name: 'Assignment Ace',
       description: 'Submit 20 assignments on time',
-      icon: '??',
+      icon: <TrendingUp className="w-12 h-12 text-green-400" />,
       rarity: 'rare',
       earned: false,
       progress: 85,
@@ -76,7 +76,7 @@ function GamificationPage() {
       id: 6,
       name: 'Focus Champion',
       description: 'Complete 50 Pomodoro sessions',
-      icon: '??',
+      icon: <Target className="w-12 h-12 text-purple-400" />,
       rarity: 'epic',
       earned: false,
       progress: 72,
@@ -87,7 +87,7 @@ function GamificationPage() {
       id: 7,
       name: 'All-rounder',
       description: 'Score above 80% in all subjects',
-      icon: '?',
+      icon: <Star className="w-12 h-12 text-yellow-400" />,
       rarity: 'legendary',
       earned: false,
       progress: 40,
@@ -98,7 +98,7 @@ function GamificationPage() {
       id: 8,
       name: 'Helper',
       description: 'Help 10 classmates with doubts',
-      icon: '??',
+      icon: <Heart className="w-12 h-12 text-pink-400" />,
       rarity: 'common',
       earned: true,
       earnedDate: '2025-11-28',
@@ -107,10 +107,10 @@ function GamificationPage() {
   ]
 
   const achievements = [
-    { id: 1, title: 'Reached Level 10', xp: 500, date: '2025-11-20', icon: '???' },
-    { id: 2, title: '7-Day Study Streak', xp: 200, date: '2025-12-10', icon: '??' },
-    { id: 3, title: 'Perfect Test Score', xp: 300, date: '2025-12-05', icon: '??' },
-    { id: 4, title: 'Completed 50 Assignments', xp: 400, date: '2025-11-30', icon: '?' }
+    { id: 1, title: 'Reached Level 10', xp: 500, date: '2025-11-20', icon: <Trophy className="text-yellow-400" /> },
+    { id: 2, title: '7-Day Study Streak', xp: 200, date: '2025-12-10', icon: <Flame className="text-orange-400" /> },
+    { id: 3, title: 'Perfect Test Score', xp: 300, date: '2025-12-05', icon: <Star className="text-yellow-400" /> },
+    { id: 4, title: 'Completed 50 Assignments', xp: 400, date: '2025-11-30', icon: <Target className="text-blue-400" /> }
   ]
 
   const leaderboard = [
@@ -138,14 +138,14 @@ function GamificationPage() {
   ]
 
   const rewards = [
-    { id: 1, name: 'Profile Theme', cost: 500, icon: '??', unlocked: true },
-    { id: 2, name: 'Custom Badge', cost: 1000, icon: '??', unlocked: true },
-    { id: 3, name: 'Avatar Frame', cost: 1500, icon: '???', unlocked: false },
-    { id: 4, name: 'Special Title', cost: 2000, icon: '??', unlocked: false }
+    { id: 1, name: 'Profile Theme', cost: 500, icon: <Medal className="w-16 h-16 text-blue-400" />, unlocked: true },
+    { id: 2, name: 'Custom Badge', cost: 1000, icon: <Award className="w-16 h-16 text-purple-400" />, unlocked: true },
+    { id: 3, name: 'Avatar Frame', cost: 1500, icon: <Crown className="w-16 h-16 text-yellow-400" />, unlocked: false },
+    { id: 4, name: 'Special Title', cost: 2000, icon: <Star className="w-16 h-16 text-pink-400" />, unlocked: false }
   ]
 
   const getRarityColor = (rarity) => {
-    switch(rarity) {
+    switch (rarity) {
       case 'legendary': return 'from-yellow-500 to-orange-500'
       case 'epic': return 'from-purple-500 to-pink-500'
       case 'rare': return 'from-blue-500 to-cyan-500'
@@ -155,7 +155,7 @@ function GamificationPage() {
   }
 
   const getRarityBorder = (rarity) => {
-    switch(rarity) {
+    switch (rarity) {
       case 'legendary': return 'border-yellow-500 shadow-yellow-500/50'
       case 'epic': return 'border-purple-500 shadow-purple-500/50'
       case 'rare': return 'border-blue-500 shadow-blue-500/50'
@@ -253,7 +253,7 @@ function GamificationPage() {
               <span className="text-white font-semibold">{Math.round(levelProgress)}%</span>
             </div>
             <div className="w-full bg-white/10 rounded-full h-3">
-              <div 
+              <div
                 className="bg-gradient-to-r from-yellow-500 to-orange-500 h-3 rounded-full transition-all duration-500"
                 style={{ width: `${levelProgress}%` }}
               />
@@ -272,11 +272,10 @@ function GamificationPage() {
             <button
               key={tab.key}
               onClick={() => setSelectedTab(tab.key)}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center space-x-2 ${
-                selectedTab === tab.key
-                  ? 'bg-gradient-to-br from-yellow-500 to-orange-500 text-white'
-                  : 'text-white/70 hover:bg-white/10'
-              }`}
+              className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center space-x-2 ${selectedTab === tab.key
+                ? 'bg-gradient-to-br from-yellow-500 to-orange-500 text-white'
+                : 'text-white/70 hover:bg-white/10'
+                }`}
             >
               <tab.icon className="w-5 h-5" />
               <span>{tab.label}</span>
@@ -320,11 +319,10 @@ function GamificationPage() {
                 {streakCalendar.map(day => (
                   <div
                     key={day.day}
-                    className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold transition-all ${
-                      day.completed
-                        ? 'bg-orange-500 text-white'
-                        : 'bg-white/10 text-white/50'
-                    }`}
+                    className={`w-12 h-12 rounded-lg flex items-center justify-center font-bold transition-all ${day.completed
+                      ? 'bg-orange-500 text-white'
+                      : 'bg-white/10 text-white/50'
+                      }`}
                   >
                     {day.day}
                   </div>
@@ -343,11 +341,10 @@ function GamificationPage() {
             {badges.map(badge => (
               <div
                 key={badge.id}
-                className={`glass-effect rounded-2xl p-6 border-2 transition-all hover:scale-105 ${
-                  badge.earned 
-                    ? getRarityBorder(badge.rarity) + ' shadow-lg'
-                    : 'border-white/10 opacity-60'
-                }`}
+                className={`glass-effect rounded-2xl p-6 border-2 transition-all hover:scale-105 ${badge.earned
+                  ? getRarityBorder(badge.rarity) + ' shadow-lg'
+                  : 'border-white/10 opacity-60'
+                  }`}
               >
                 <div className="text-center space-y-3">
                   <div className={`text-6xl ${badge.earned ? 'animate-pulse' : 'grayscale'}`}>
@@ -357,7 +354,7 @@ function GamificationPage() {
                     <h4 className="text-white font-bold text-lg">{badge.name}</h4>
                     <p className="text-white/60 text-sm mt-1">{badge.description}</p>
                   </div>
-                  
+
                   {badge.earned ? (
                     <div>
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${getRarityColor(badge.rarity)} text-white`}>
@@ -368,7 +365,7 @@ function GamificationPage() {
                   ) : (
                     <div>
                       <div className="w-full bg-white/10 rounded-full h-2 mb-2">
-                        <div 
+                        <div
                           className={`h-2 rounded-full bg-gradient-to-r ${getRarityColor(badge.rarity)}`}
                           style={{ width: `${badge.progress}%` }}
                         />
@@ -392,42 +389,39 @@ function GamificationPage() {
               {leaderboard.map(student => (
                 <div
                   key={student.rank}
-                  className={`rounded-xl p-4 flex items-center space-x-4 transition-all ${
-                    student.isCurrentUser
-                      ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50'
-                      : 'bg-white/5 hover:bg-white/10'
-                  }`}
+                  className={`rounded-xl p-4 flex items-center space-x-4 transition-all ${student.isCurrentUser
+                    ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-2 border-purple-500/50'
+                    : 'bg-white/5 hover:bg-white/10'
+                    }`}
                 >
-                  <div className={`text-2xl font-bold ${
-                    student.rank === 1 ? 'text-yellow-400' :
+                  <div className={`text-2xl font-bold ${student.rank === 1 ? 'text-yellow-400' :
                     student.rank === 2 ? 'text-gray-400' :
-                    student.rank === 3 ? 'text-orange-600' :
-                    'text-white/70'
-                  }`}>
+                      student.rank === 3 ? 'text-orange-600' :
+                        'text-white/70'
+                    }`}>
                     #{student.rank}
                   </div>
-                  
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${
-                    student.isCurrentUser
-                      ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
-                      : 'bg-gradient-to-br from-blue-500 to-cyan-500 text-white'
-                  }`}>
+
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg ${student.isCurrentUser
+                    ? 'bg-gradient-to-br from-purple-500 to-pink-500 text-white'
+                    : 'bg-gradient-to-br from-blue-500 to-cyan-500 text-white'
+                    }`}>
                     {student.avatar}
                   </div>
-                  
+
                   <div className="flex-1">
                     <h4 className="text-white font-semibold">{student.name}</h4>
                     <p className="text-white/60 text-sm">Level {student.level}</p>
                   </div>
-                  
+
                   <div className="text-right">
                     <p className="text-white font-bold text-lg">{student.xp.toLocaleString()}</p>
                     <p className="text-white/60 text-xs">Total XP</p>
                   </div>
-                  
+
                   {student.rank <= 3 && (
                     <div className="text-3xl">
-                      {student.rank === 1 ? '??' : student.rank === 2 ? '??' : '??'}
+                      {student.rank === 1 ? '🥇' : student.rank === 2 ? '🥈' : '🥉'}
                     </div>
                   )}
                 </div>
@@ -451,11 +445,10 @@ function GamificationPage() {
               {rewards.map(reward => (
                 <div
                   key={reward.id}
-                  className={`glass-effect rounded-2xl p-6 border transition-all ${
-                    reward.unlocked
-                      ? 'border-green-500/50 bg-green-500/5'
-                      : 'border-white/10 hover:scale-105'
-                  }`}
+                  className={`glass-effect rounded-2xl p-6 border transition-all ${reward.unlocked
+                    ? 'border-green-500/50 bg-green-500/5'
+                    : 'border-white/10 hover:scale-105'
+                    }`}
                 >
                   <div className="text-center space-y-3">
                     <div className="text-6xl">{reward.icon}</div>
@@ -463,7 +456,7 @@ function GamificationPage() {
                       <h4 className="text-white font-bold">{reward.name}</h4>
                       <p className="text-yellow-400 font-semibold mt-2">{reward.cost} XP</p>
                     </div>
-                    
+
                     {reward.unlocked ? (
                       <span className="inline-block px-4 py-2 rounded-lg bg-green-500/20 text-green-400 font-semibold">
                         Unlocked ?
@@ -471,11 +464,10 @@ function GamificationPage() {
                     ) : (
                       <button
                         disabled={userStats.totalXP < reward.cost}
-                        className={`w-full px-4 py-2 rounded-lg font-semibold transition-all ${
-                          userStats.totalXP >= reward.cost
-                            ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white'
-                            : 'bg-white/10 text-white/50 cursor-not-allowed'
-                        }`}
+                        className={`w-full px-4 py-2 rounded-lg font-semibold transition-all ${userStats.totalXP >= reward.cost
+                          ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white'
+                          : 'bg-white/10 text-white/50 cursor-not-allowed'
+                          }`}
                       >
                         {userStats.totalXP >= reward.cost ? 'Unlock' : 'Insufficient XP'}
                       </button>

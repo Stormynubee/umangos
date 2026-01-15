@@ -11,7 +11,7 @@ function Sidebar({ role, userName, onLogout }) {
   const [sfxEnabled, setSfxEnabled] = useState(audioManager.getSFXEnabled())
   const [musicVolume, setMusicVolume] = useState(audioManager.getMusicVolume())
   const [sfxVolume, setSfxVolume] = useState(audioManager.getSFXVolume())
-  
+
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -202,9 +202,8 @@ function Sidebar({ role, userName, onLogout }) {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen glass-effect border-r border-white/30 shadow-2xl z-40 transition-all duration-300 overflow-y-auto backdrop-blur-2xl bg-black/40 ${
-          isOpen ? 'w-72' : 'w-0 lg:w-20'
-        }`}
+        className={`fixed top-0 left-0 h-screen glass-effect border-r border-white/30 shadow-2xl z-40 transition-all duration-300 overflow-y-auto backdrop-blur-2xl bg-black/40 ${isOpen ? 'w-72' : 'w-0 lg:w-20'
+          }`}
       >
         <div className={`h-full flex flex-col ${isOpen ? '' : 'items-center'}`}>
           {/* Header */}
@@ -217,7 +216,7 @@ function Sidebar({ role, userName, onLogout }) {
                 {isOpen && (
                   <div>
                     <h2 className="text-white font-bold text-lg drop-shadow-lg">UmangOS</h2>
-                    <p className="text-white/80 text-xs font-semibold">by Hansraj</p>
+                    <p className="text-white/80 text-xs font-semibold">Wellbeing System</p>
                   </div>
                 )}
               </div>
@@ -250,8 +249,8 @@ function Sidebar({ role, userName, onLogout }) {
                     className="w-full flex items-center justify-between px-3 py-2 text-white/70 hover:text-white transition-all font-bold text-xs uppercase tracking-wider bg-white/5 rounded-lg backdrop-blur-sm"
                   >
                     <span className="drop-shadow-lg">{group.label}</span>
-                    <ChevronDown 
-                      className={`w-4 h-4 transition-transform duration-300 ${expandedGroups[groupKey] ? 'rotate-180' : ''}`} 
+                    <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-300 ${expandedGroups[groupKey] ? 'rotate-180' : ''}`}
                     />
                   </button>
                 )}
@@ -262,15 +261,14 @@ function Sidebar({ role, userName, onLogout }) {
                     {group.items.map((item) => {
                       const Icon = item.icon
                       const isActive = location.pathname === item.path
-                      
+
                       return (
                         <Link
                           key={item.path}
                           to={item.path}
                           onClick={handleNavClick}
-                          className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 font-semibold backdrop-blur-sm ${
-                            getColorClasses(item.color, isActive)
-                          } ${isOpen ? '' : 'justify-center lg:justify-start'} ${isActive ? 'scale-105' : 'hover:scale-105'}`}
+                          className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 font-semibold backdrop-blur-sm ${getColorClasses(item.color, isActive)
+                            } ${isOpen ? '' : 'justify-center lg:justify-start'} ${isActive ? 'scale-105' : 'hover:scale-105'}`}
                           title={!isOpen ? item.label : undefined}
                           style={{
                             textShadow: isActive ? '0 2px 8px rgba(0,0,0,0.5)' : 'none'
@@ -381,10 +379,8 @@ function Sidebar({ role, userName, onLogout }) {
           {/* Footer */}
           {isOpen && (
             <div className="p-4 border-t border-white/20 bg-black/20">
-              <p className="text-white/70 text-xs text-center font-semibold drop-shadow-lg">
+              <p className="text-white/60 text-xs text-center font-medium drop-shadow-lg">
                 © 2025 UmangOS
-                <br />
-                Developed by Hansraj
               </p>
             </div>
           )}

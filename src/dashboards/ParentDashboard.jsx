@@ -38,7 +38,7 @@ function ParentDashboardHome({ userName }) {
 
   return (
     <div className="min-h-screen p-8">
-      
+
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-6">
           <div className="flex items-center justify-between">
@@ -50,8 +50,7 @@ function ParentDashboardHome({ userName }) {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-white/70 text-sm">Developed by Hansraj</p>
-              <p className="text-white text-sm">{new Date().toLocaleDateString()}</p>
+              <p className="text-white/90 text-sm font-medium">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </div>
 
@@ -115,7 +114,7 @@ function ParentDashboardHome({ userName }) {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="day" stroke="#fff" tick={{ fill: '#fff' }} />
                   <YAxis stroke="#fff" tick={{ fill: '#fff' }} />
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px' }}
                   />
                   <Area type="monotone" dataKey="wellbeing" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
@@ -138,7 +137,7 @@ function ParentDashboardHome({ userName }) {
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <div className="w-full bg-white/20 rounded-full h-2 mr-3">
-                        <div 
+                        <div
                           className="bg-blue-400 h-2 rounded-full transition-all"
                           style={{ width: `${subject.score}%` }}
                         />
@@ -170,11 +169,10 @@ function ParentDashboardHome({ userName }) {
                     </div>
                   </div>
                   <div>
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      activity.status === 'positive' 
-                        ? 'bg-green-500/20 text-green-400' 
-                        : 'bg-yellow-500/20 text-yellow-400'
-                    }`}>
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${activity.status === 'positive'
+                      ? 'bg-green-500/20 text-green-400'
+                      : 'bg-yellow-500/20 text-yellow-400'
+                      }`}>
                       {activity.status === 'positive' ? 'Positive' : 'Monitor'}
                     </span>
                   </div>
@@ -211,15 +209,21 @@ function ParentDashboardHome({ userName }) {
   )
 }
 
+import ParentChildPage from '../pages/parent/ParentChildPage'
+import ParentReportsPage from '../pages/parent/ParentReportsPage'
+import ParentCalendarPage from '../pages/parent/ParentCalendarPage'
+import ParentMessagesPage from '../pages/parent/ParentMessagesPage'
+import ParentSettingsPage from '../pages/parent/ParentSettingsPage'
+
 function ParentDashboard({ userName }) {
   return (
     <Routes>
       <Route index element={<ParentDashboardHome userName={userName} />} />
-      <Route path="child" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">My Child page coming soon...</p></div></div>} />
-      <Route path="reports" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">Reports coming soon...</p></div></div>} />
-      <Route path="calendar" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">Calendar coming soon...</p></div></div>} />
-      <Route path="messages" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">Messages coming soon...</p></div></div>} />
-      <Route path="settings" element={<div className="p-8"><div className="glass-effect rounded-3xl p-8 border border-white/20"><p className="text-white text-center">Settings coming soon...</p></div></div>} />
+      <Route path="child" element={<ParentChildPage />} />
+      <Route path="reports" element={<ParentReportsPage />} />
+      <Route path="calendar" element={<ParentCalendarPage />} />
+      <Route path="messages" element={<ParentMessagesPage />} />
+      <Route path="settings" element={<ParentSettingsPage />} />
     </Routes>
   )
 }

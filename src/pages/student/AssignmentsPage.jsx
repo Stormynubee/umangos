@@ -91,7 +91,7 @@ function AssignmentsPage() {
   const filteredAssignments = assignments.filter(assignment => {
     const matchesTab = selectedTab === 'all' || assignment.status === selectedTab
     const matchesSearch = assignment.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         assignment.subject.toLowerCase().includes(searchQuery.toLowerCase())
+      assignment.subject.toLowerCase().includes(searchQuery.toLowerCase())
     const matchesSubject = selectedSubject === 'all' || assignment.subject === selectedSubject
     return matchesTab && matchesSearch && matchesSubject
   })
@@ -104,7 +104,7 @@ function AssignmentsPage() {
   }
 
   const getPriorityColor = (priority) => {
-    switch(priority) {
+    switch (priority) {
       case 'urgent': return 'text-red-400 bg-red-500/20 border-red-500/30'
       case 'high': return 'text-orange-400 bg-orange-500/20 border-orange-500/30'
       case 'medium': return 'text-yellow-400 bg-yellow-500/20 border-yellow-500/30'
@@ -113,7 +113,7 @@ function AssignmentsPage() {
   }
 
   const getDifficultyColor = (difficulty) => {
-    switch(difficulty) {
+    switch (difficulty) {
       case 'Hard': return 'text-red-400'
       case 'Medium': return 'text-yellow-400'
       default: return 'text-green-400'
@@ -121,7 +121,7 @@ function AssignmentsPage() {
   }
 
   const getStatusBadge = (assignment) => {
-    switch(assignment.status) {
+    switch (assignment.status) {
       case 'pending':
         const days = getDaysRemaining(assignment.dueDate)
         if (days < 0) {
@@ -217,11 +217,10 @@ function AssignmentsPage() {
                 <button
                   key={tab.key}
                   onClick={() => setSelectedTab(tab.key)}
-                  className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                    selectedTab === tab.key
+                  className={`px-4 py-2 rounded-lg font-semibold transition-all ${selectedTab === tab.key
                       ? 'bg-purple-500 text-white'
                       : 'bg-white/10 text-white/70 hover:bg-white/20'
-                  }`}
+                    }`}
                 >
                   {tab.label} ({tab.count})
                 </button>
@@ -291,22 +290,21 @@ function AssignmentsPage() {
                             <span>Due: {new Date(assignment.dueDate).toLocaleDateString()}</span>
                           </span>
                           {assignment.status === 'pending' && (
-                            <span className={`font-semibold ${
-                              getDaysRemaining(assignment.dueDate) < 0 ? 'text-red-400' :
-                              getDaysRemaining(assignment.dueDate) <= 2 ? 'text-orange-400' :
-                              'text-blue-400'
-                            }`}>
-                              {getDaysRemaining(assignment.dueDate) < 0 
+                            <span className={`font-semibold ${getDaysRemaining(assignment.dueDate) < 0 ? 'text-red-400' :
+                                getDaysRemaining(assignment.dueDate) <= 2 ? 'text-orange-400' :
+                                  'text-blue-400'
+                              }`}>
+                              {getDaysRemaining(assignment.dueDate) < 0
                                 ? `${Math.abs(getDaysRemaining(assignment.dueDate))} days overdue`
                                 : getDaysRemaining(assignment.dueDate) === 0
-                                ? 'Due today!'
-                                : `${getDaysRemaining(assignment.dueDate)} days left`
+                                  ? 'Due today!'
+                                  : `${getDaysRemaining(assignment.dueDate)} days left`
                               }
                             </span>
                           )}
                         </div>
                         <p className="text-white/80 mb-4">{assignment.description}</p>
-                        
+
                         <div className="flex items-center space-x-6">
                           <span className="text-sm text-white/70">
                             Subject: <span className="text-white font-semibold">{assignment.subject}</span>
@@ -343,7 +341,7 @@ function AssignmentsPage() {
                         {assignment.status === 'submitted' && (
                           <div className="mt-4 bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
                             <p className="text-purple-400 text-sm">
-                              ? Submitted on {new Date(assignment.submittedDate).toLocaleDateString()} - Awaiting grade
+                              ✅ Submitted on {new Date(assignment.submittedDate).toLocaleDateString()} - Awaiting grade
                             </p>
                           </div>
                         )}

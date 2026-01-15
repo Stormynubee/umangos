@@ -5,7 +5,7 @@ import CameraView from '../components/CameraView'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts'
 
 // Import new pages
-// import AttendancePage from '../pages/student/AttendancePage' // TEMPORARILY DISABLED
+import AttendancePage from '../pages/student/AttendancePage'
 import AssignmentsPage from '../pages/student/AssignmentsPage'
 import ExamsPage from '../pages/student/ExamsPage'
 import TimetablePage from '../pages/student/TimetablePage'
@@ -13,6 +13,7 @@ import PomodoroPage from '../pages/student/PomodoroPage'
 import PlannerPage from '../pages/student/PlannerPage'
 import AIAssistantPage from '../pages/student/AIAssistantPage'
 import GamificationPage from '../pages/student/GamificationPage'
+import AnalyticsPage from '../pages/student/AnalyticsPage'
 import AboutDeveloper from '../pages/student/AboutDeveloper'
 import SettingsPage from '../pages/student/SettingsPage'
 
@@ -23,7 +24,7 @@ function StudentDashboardHome({ userName }) {
 
   const handleEmotionUpdate = (emotion) => {
     setCurrentEmotion(emotion)
-    
+
     const timestamp = new Date().toLocaleTimeString()
     setEmotionHistory(prev => {
       const updated = [...prev, {
@@ -36,7 +37,7 @@ function StudentDashboardHome({ userName }) {
 
     const positiveEmotions = ['happy', 'calm', 'content', 'excited', 'delighted']
     const isPositive = positiveEmotions.includes(emotion.fusedEmotion)
-    
+
     setWellbeingScore(prev => {
       const adjustment = isPositive ? 1 : -0.5
       const newScore = Math.max(0, Math.min(100, prev + adjustment))
@@ -44,14 +45,14 @@ function StudentDashboardHome({ userName }) {
     })
   }
 
-  const emotionDistribution = currentEmotion?.breakdown?.face?.allExpressions 
+  const emotionDistribution = currentEmotion?.breakdown?.face?.allExpressions
     ? Object.entries(currentEmotion.breakdown.face.allExpressions).map(([emotion, value]) => ({
-        emotion: emotion.charAt(0).toUpperCase() + emotion.slice(1),
-        value
-      }))
+      emotion: emotion.charAt(0).toUpperCase() + emotion.slice(1),
+      value
+    }))
     : []
 
-  const focusIndicator = currentEmotion 
+  const focusIndicator = currentEmotion
     ? ['neutral', 'calm', 'content'].includes(currentEmotion.fusedEmotion) ? 85 : 60
     : 0
 
@@ -71,8 +72,7 @@ function StudentDashboardHome({ userName }) {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-white/80 text-sm font-medium">Developed by Hansraj</p>
-              <p className="text-white text-base font-semibold">{new Date().toLocaleDateString()}</p>
+              <p className="text-white/90 text-sm font-medium">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </div>
 
@@ -92,9 +92,9 @@ function StudentDashboardHome({ userName }) {
                   <div className="text-white/80 text-base font-medium">out of 100</div>
                 </div>
                 <div className="mt-8 w-full bg-white/20 rounded-full h-4 shadow-inner">
-                  <div 
+                  <div
                     className="h-4 rounded-full transition-all duration-500 shadow-lg"
-                    style={{ 
+                    style={{
                       width: `${wellbeingScore}%`,
                       backgroundColor: wellbeingScore > 70 ? '#22c55e' : wellbeingScore > 40 ? '#f59e0b' : '#ef4444'
                     }}
@@ -117,7 +117,7 @@ function StudentDashboardHome({ userName }) {
                   <div className="text-white/80 text-base font-medium">Focus Score</div>
                 </div>
                 <div className="mt-8 w-full bg-white/20 rounded-full h-4 shadow-inner">
-                  <div 
+                  <div
                     className="bg-purple-400 h-4 rounded-full transition-all duration-500 shadow-lg"
                     style={{ width: `${focusIndicator}%` }}
                   />
@@ -181,19 +181,19 @@ function StudentDashboardHome({ userName }) {
                 <ResponsiveContainer width="100%" height={280}>
                   <LineChart data={emotionHistory}>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.15)" />
-                    <XAxis 
-                      dataKey="time" 
-                      stroke="#fff" 
-                      tick={{ fill: '#fff', fontSize: 13, fontWeight: 500 }} 
+                    <XAxis
+                      dataKey="time"
+                      stroke="#fff"
+                      tick={{ fill: '#fff', fontSize: 13, fontWeight: 500 }}
                     />
-                    <YAxis 
-                      stroke="#fff" 
-                      tick={{ fill: '#fff', fontSize: 13, fontWeight: 500 }} 
+                    <YAxis
+                      stroke="#fff"
+                      tick={{ fill: '#fff', fontSize: 13, fontWeight: 500 }}
                     />
-                    <Tooltip 
-                      contentStyle={{ 
-                        backgroundColor: 'rgba(0,0,0,0.85)', 
-                        border: '2px solid rgba(255,255,255,0.3)', 
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'rgba(0,0,0,0.85)',
+                        border: '2px solid rgba(255,255,255,0.3)',
                         borderRadius: '12px',
                         padding: '12px',
                         fontSize: '14px',
@@ -201,12 +201,12 @@ function StudentDashboardHome({ userName }) {
                       }}
                       labelStyle={{ color: '#fff', fontWeight: 600 }}
                     />
-                    <Line 
-                      type="monotone" 
-                      dataKey="score" 
-                      stroke="#8b5cf6" 
-                      strokeWidth={3} 
-                      dot={{ fill: '#8b5cf6', r: 5 }} 
+                    <Line
+                      type="monotone"
+                      dataKey="score"
+                      stroke="#8b5cf6"
+                      strokeWidth={3}
+                      dot={{ fill: '#8b5cf6', r: 5 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -227,21 +227,21 @@ function StudentDashboardHome({ userName }) {
                 <ResponsiveContainer width="100%" height={280}>
                   <RadarChart data={emotionDistribution}>
                     <PolarGrid stroke="rgba(255,255,255,0.25)" />
-                    <PolarAngleAxis 
-                      dataKey="emotion" 
-                      stroke="#fff" 
-                      tick={{ fill: '#fff', fontSize: 13, fontWeight: 600 }} 
+                    <PolarAngleAxis
+                      dataKey="emotion"
+                      stroke="#fff"
+                      tick={{ fill: '#fff', fontSize: 13, fontWeight: 600 }}
                     />
-                    <PolarRadiusAxis 
-                      stroke="#fff" 
-                      tick={{ fill: '#fff', fontSize: 12, fontWeight: 500 }} 
+                    <PolarRadiusAxis
+                      stroke="#fff"
+                      tick={{ fill: '#fff', fontSize: 12, fontWeight: 500 }}
                     />
-                    <Radar 
-                      name="Intensity" 
-                      dataKey="value" 
-                      stroke="#ec4899" 
-                      fill="#ec4899" 
-                      fillOpacity={0.6} 
+                    <Radar
+                      name="Intensity"
+                      dataKey="value"
+                      stroke="#ec4899"
+                      fill="#ec4899"
+                      fillOpacity={0.6}
                       strokeWidth={2}
                     />
                   </RadarChart>
@@ -287,18 +287,21 @@ function StudentDashboard({ userName }) {
   return (
     <Routes>
       <Route index element={<StudentDashboardHome userName={userName} />} />
-      <Route path="live" element={<LiveDetection userName={userName} />} /><Route path="assignments" element={<AssignmentsPage />} />
+      <Route path="live" element={<LiveDetection userName={userName} />} />
+      <Route path="attendance" element={<AttendancePage />} />
+      <Route path="assignments" element={<AssignmentsPage />} />
       <Route path="exams" element={<ExamsPage />} />
       <Route path="timetable" element={<TimetablePage />} />
       <Route path="pomodoro" element={<PomodoroPage />} />
       <Route path="planner" element={<PlannerPage />} />
       <Route path="ai-assistant" element={<AIAssistantPage />} />
       <Route path="gamification" element={<GamificationPage />} />
-      <Route path="analytics" element={<div className="p-8"><div className="card-readable border-2 border-blue-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">?? Analytics Dashboard</h2><p className="text-white/85 text-center font-medium text-lg">View your comprehensive performance analytics, trends, and insights here.</p></div></div>} />
-      <Route path="journal" element={<div className="p-8"><div className="card-readable border-2 border-purple-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">?? Mood Journal</h2><p className="text-white/85 text-center font-medium text-lg">Track your daily thoughts, feelings, and reflections here.</p></div></div>} />
-      <Route path="calendar" element={<div className="p-8"><div className="card-readable border-2 border-pink-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">?? Academic Calendar</h2><p className="text-white/85 text-center font-medium text-lg">Manage your schedule, events, and deadlines here.</p></div></div>} />
-      <Route path="profile" element={<div className="p-8"><div className="card-readable border-2 border-green-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">?? My Profile</h2><p className="text-white/85 text-center font-medium text-lg">View and edit your personal information and achievements here.</p></div></div>} />
-      <Route path="about" element={<AboutDeveloper />} />`n      <Route path="settings" element={<div className="p-8"><div className="card-readable border-2 border-gray-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">?? Settings</h2><p className="text-white/85 text-center font-medium text-lg">Customize your experience with notifications, privacy, and display settings.</p></div></div>} />
+      <Route path="analytics" element={<AnalyticsPage />} />
+      <Route path="journal" element={<div className="p-8"><div className="card-readable border-2 border-purple-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">Mood Journal</h2><p className="text-white/85 text-center font-medium text-lg">Track your daily thoughts, feelings, and reflections here.</p></div></div>} />
+      <Route path="calendar" element={<div className="p-8"><div className="card-readable border-2 border-pink-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">Academic Calendar</h2><p className="text-white/85 text-center font-medium text-lg">Manage your schedule, events, and deadlines here.</p></div></div>} />
+      <Route path="profile" element={<div className="p-8"><div className="card-readable border-2 border-green-400/30"><h2 className="text-white text-center text-3xl font-bold mb-4 text-shadow-lg">My Profile</h2><p className="text-white/85 text-center font-medium text-lg">View and edit your personal information and achievements here.</p></div></div>} />
+      <Route path="about" element={<AboutDeveloper />} />
+      <Route path="settings" element={<SettingsPage />} />
     </Routes>
   )
 }

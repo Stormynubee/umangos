@@ -2,6 +2,11 @@ import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Users, TrendingUp, AlertCircle, CheckCircle, Clock, BarChart3, Camera, FileText, Activity, Settings as SettingsIcon } from 'lucide-react'
 import CameraView from '../components/CameraView'
+import StudentsPage from '../pages/teacher/StudentsPage'
+import TeacherAnalyticsPage from '../pages/teacher/TeacherAnalyticsPage'
+import TeacherReportsPage from '../pages/teacher/TeacherReportsPage'
+import TeacherAlertsPage from '../pages/teacher/TeacherAlertsPage'
+import TeacherSettingsPage from '../pages/teacher/TeacherSettingsPage'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts'
 
 function TeacherDashboardHome({ userName }) {
@@ -15,13 +20,13 @@ function TeacherDashboardHome({ userName }) {
 
   const handleEmotionUpdate = (emotion) => {
     setCurrentEmotion(emotion)
-    
+
     const positiveEmotions = ['happy', 'calm', 'content', 'excited', 'delighted']
     const negativeEmotions = ['sad', 'angry', 'fearful', 'anxious', 'stressed', 'distressed']
-    
+
     setSessionData(prev => {
       const updated = { ...prev }
-      
+
       if (positiveEmotions.includes(emotion.fusedEmotion)) {
         updated.positiveCount++
       } else if (negativeEmotions.includes(emotion.fusedEmotion)) {
@@ -29,9 +34,9 @@ function TeacherDashboardHome({ userName }) {
       } else {
         updated.neutralCount++
       }
-      
+
       updated.duration++
-      
+
       return updated
     })
   }
@@ -70,7 +75,7 @@ function TeacherDashboardHome({ userName }) {
               </div>
             </div>
             <div className="text-right">
-              <p className="text-white text-sm">{new Date().toLocaleDateString()}</p>
+              <p className="text-white/90 text-sm font-medium">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
           </div>
 
@@ -137,7 +142,7 @@ function TeacherDashboardHome({ userName }) {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="emotion" stroke="#fff" tick={{ fill: '#fff' }} />
                   <YAxis stroke="#fff" tick={{ fill: '#fff' }} />
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px' }}
                     labelStyle={{ color: '#fff' }}
                   />
@@ -167,10 +172,10 @@ function TeacherDashboardHome({ userName }) {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px' }}
                   />
-                  <Legend 
+                  <Legend
                     wrapperStyle={{ color: '#fff' }}
                     iconType="circle"
                   />
@@ -253,115 +258,6 @@ function LiveClassMonitor({ userName }) {
   )
 }
 
-function StudentsPage() {
-  return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="bg-purple-500/20 p-3 rounded-xl">
-            <Users className="w-8 h-8 text-purple-400" />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-white">Students</h1>
-            <p className="text-white/70 text-lg">Manage your students</p>
-          </div>
-        </div>
-
-        <div className="glass-effect rounded-3xl p-8 border border-white/20">
-          <p className="text-white text-center text-lg">Students page coming soon...</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function TeacherAnalytics() {
-  return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="bg-pink-500/20 p-3 rounded-xl">
-            <BarChart3 className="w-8 h-8 text-pink-400" />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-white">Analytics</h1>
-            <p className="text-white/70 text-lg">Class performance insights</p>
-          </div>
-        </div>
-
-        <div className="glass-effect rounded-3xl p-8 border border-white/20">
-          <p className="text-white text-center text-lg">Analytics coming soon...</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function Reports() {
-  return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="bg-orange-500/20 p-3 rounded-xl">
-            <FileText className="w-8 h-8 text-orange-400" />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-white">Reports</h1>
-            <p className="text-white/70 text-lg">Generate and view reports</p>
-          </div>
-        </div>
-
-        <div className="glass-effect rounded-3xl p-8 border border-white/20">
-          <p className="text-white text-center text-lg">Reports coming soon...</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function Alerts() {
-  return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="bg-red-500/20 p-3 rounded-xl">
-            <Activity className="w-8 h-8 text-red-400" />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-white">Alerts</h1>
-            <p className="text-white/70 text-lg">Student attention alerts</p>
-          </div>
-        </div>
-
-        <div className="glass-effect rounded-3xl p-8 border border-white/20">
-          <p className="text-white text-center text-lg">Alerts coming soon...</p>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function TeacherSettings() {
-  return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="bg-gray-500/20 p-3 rounded-xl">
-            <SettingsIcon className="w-8 h-8 text-gray-400" />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-white">Settings</h1>
-            <p className="text-white/70 text-lg">Configure your preferences</p>
-          </div>
-        </div>
-
-        <div className="glass-effect rounded-3xl p-8 border border-white/20">
-          <p className="text-white text-center text-lg">Settings coming soon...</p>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 function TeacherDashboard({ userName }) {
   return (
@@ -369,10 +265,10 @@ function TeacherDashboard({ userName }) {
       <Route index element={<TeacherDashboardHome userName={userName} />} />
       <Route path="live" element={<LiveClassMonitor userName={userName} />} />
       <Route path="students" element={<StudentsPage />} />
-      <Route path="analytics" element={<TeacherAnalytics />} />
-      <Route path="reports" element={<Reports />} />
-      <Route path="alerts" element={<Alerts />} />
-      <Route path="settings" element={<TeacherSettings />} />
+      <Route path="analytics" element={<TeacherAnalyticsPage />} />
+      <Route path="reports" element={<TeacherReportsPage />} />
+      <Route path="alerts" element={<TeacherAlertsPage />} />
+      <Route path="settings" element={<TeacherSettingsPage />} />
     </Routes>
   )
 }

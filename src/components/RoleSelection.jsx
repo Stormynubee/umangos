@@ -181,11 +181,10 @@ function RoleSelection({ onRoleSelect }) {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter any password"
+                  placeholder="Enter your password"
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/20 transition-all"
                   required
                 />
-                <p className="text-white/50 text-xs">You can use any password</p>
               </div>
 
               <button
@@ -201,16 +200,7 @@ function RoleSelection({ onRoleSelect }) {
               </button>
             </form>
 
-            {/* Footer */}
-            <div className="pt-6">
-              <div className="inline-block px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
-                <p className="text-white font-semibold flex items-center space-x-2">
-                  <Sparkles className="w-4 h-4 text-yellow-300" />
-                  <span>Developed by Hansraj</span>
-                  <Sparkles className="w-4 h-4 text-yellow-300" />
-                </p>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>

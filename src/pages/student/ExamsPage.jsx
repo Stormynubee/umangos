@@ -184,11 +184,10 @@ function ExamsPage() {
             <button
               key={tab.key}
               onClick={() => setSelectedTab(tab.key)}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center space-x-2 ${
-                selectedTab === tab.key
-                  ? 'bg-pink-500 text-white'
-                  : 'text-white/70 hover:bg-white/10'
-              }`}
+              className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center space-x-2 ${selectedTab === tab.key
+                ? 'bg-pink-500 text-white'
+                : 'text-white/70 hover:bg-white/10'
+                }`}
             >
               <tab.icon className="w-5 h-5" />
               <span>{tab.label}</span>
@@ -223,7 +222,7 @@ function ExamsPage() {
                               {exam.daysLeft} {exam.daysLeft === 1 ? 'day' : 'days'} left
                             </span>
                           </div>
-                          
+
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                             <div className="flex items-center space-x-2 text-white/70">
                               <Calendar className="w-4 h-4" />
@@ -348,7 +347,7 @@ function ExamsPage() {
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                     <XAxis dataKey="subject" stroke="#fff" tick={{ fill: '#fff' }} />
                     <YAxis stroke="#fff" tick={{ fill: '#fff' }} domain={[0, 100]} />
-                    <Tooltip 
+                    <Tooltip
                       contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px' }}
                     />
                     <Bar dataKey="score" fill="#ec4899" radius={[8, 8, 0, 0]} />
@@ -378,13 +377,13 @@ function ExamsPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="exam" stroke="#fff" tick={{ fill: '#fff' }} />
                   <YAxis stroke="#fff" tick={{ fill: '#fff' }} domain={[0, 100]} />
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'rgba(0,0,0,0.8)', border: 'none', borderRadius: '8px' }}
                   />
-                  <Line 
-                    type="monotone" 
-                    dataKey="score" 
-                    stroke="#22c55e" 
+                  <Line
+                    type="monotone"
+                    dataKey="score"
+                    stroke="#22c55e"
                     strokeWidth={3}
                     dot={{ fill: '#22c55e', r: 6 }}
                   />
@@ -399,17 +398,17 @@ function ExamsPage() {
                 <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
                   <h4 className="text-green-400 font-semibold mb-2">Strengths</h4>
                   <ul className="text-white/80 text-sm space-y-1">
-                    <li>? Consistent performance in English (91%)</li>
-                    <li>? Strong improvement trend (+16% over 5 tests)</li>
-                    <li>? Excellent in Geography (88%)</li>
+                    <li>✅ Consistent performance in English (91%)</li>
+                    <li>✅ Strong improvement trend (+16% over 5 tests)</li>
+                    <li>✅ Excellent in Geography (88%)</li>
                   </ul>
                 </div>
                 <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
                   <h4 className="text-yellow-400 font-semibold mb-2">Areas for Improvement</h4>
                   <ul className="text-white/80 text-sm space-y-1">
-                    <li>? Focus more on Mathematics (76%)</li>
-                    <li>? Practice complex problem-solving</li>
-                    <li>? Improve time management during exams</li>
+                    <li>✅ Focus more on Mathematics (76%)</li>
+                    <li>✅ Practice complex problem-solving</li>
+                    <li>✅ Improve time management during exams</li>
                   </ul>
                 </div>
               </div>

@@ -55,7 +55,7 @@ function App() {
 
   if (!permissionsChecked || !hasPermissions) {
     return (
-      <PermissionScreen 
+      <PermissionScreen
         onPermissionsGranted={handlePermissionsGranted}
         onPermissionsDenied={handlePermissionsDenied}
         isRetry={permissionsChecked && !hasPermissions}
@@ -68,20 +68,22 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="flex min-h-screen gradient-primary">
-        <Sidebar role={userRole} userName={userName} onLogout={handleLogout} />
-        <div className="flex-1 lg:ml-72 transition-all duration-300">
-          <Routes>
-            <Route path="/" element={<Navigate to={`/${userRole}`} replace />} />
-            <Route path="/student/*" element={<StudentDashboard userName={userName} />} />
-            <Route path="/teacher/*" element={<TeacherDashboard userName={userName} />} />
-            <Route path="/parent/*" element={<ParentDashboard userName={userName} />} />
-            <Route path="/admin/*" element={<AdminDashboard userName={userName} />} />
-          </Routes>
+    <ThemeProvider>
+      <Router>
+        <div className="flex min-h-screen gradient-primary">
+          <Sidebar role={userRole} userName={userName} onLogout={handleLogout} />
+          <div className="flex-1 lg:ml-72 transition-all duration-300">
+            <Routes>
+              <Route path="/" element={<Navigate to={`/${userRole}`} replace />} />
+              <Route path="/student/*" element={<StudentDashboard userName={userName} />} />
+              <Route path="/teacher/*" element={<TeacherDashboard userName={userName} />} />
+              <Route path="/parent/*" element={<ParentDashboard userName={userName} />} />
+              <Route path="/admin/*" element={<AdminDashboard userName={userName} />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </ThemeProvider>
   )
 }
 

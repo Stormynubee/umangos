@@ -55,7 +55,7 @@ function AttendancePage() {
       let status = 'present'
       if (random > 0.95) status = 'absent'
       else if (random > 0.90) status = 'late'
-      
+
       // Future dates
       if (i > new Date().getDate() && selectedMonth === new Date().getMonth()) {
         status = 'future'
@@ -159,7 +159,7 @@ function AttendancePage() {
           <div className="lg:col-span-2 card-readable border-2 border-white/20">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-white font-bold text-2xl text-shadow-md">Attendance Calendar</h3>
-              <select 
+              <select
                 value={selectedMonth}
                 onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
                 className="input-enhanced text-base font-semibold"
@@ -228,19 +228,19 @@ function AttendancePage() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) => \\: \%\}
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
                 >
                   {attendancePieData.map((entry, index) => (
-                    <Cell key={\cell-\\} fill={entry.color} />
+                    <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(0,0,0,0.85)', 
-                    border: '2px solid rgba(255,255,255,0.3)', 
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'rgba(0,0,0,0.85)',
+                    border: '2px solid rgba(255,255,255,0.3)',
                     borderRadius: '12px',
                     padding: '12px',
                     fontSize: '14px',
@@ -277,16 +277,19 @@ function AttendancePage() {
                   </div>
                   <div className="text-right">
                     <p className="text-3xl font-extrabold text-white text-shadow-md">{subject.percentage.toFixed(1)}%</p>
-                    <span className={\	ext-sm font-bold px-3 py-1.5 rounded-full mt-2 inline-block \\}>
+                    <span className={`text-sm font-bold px-3 py-1.5 rounded-full mt-2 inline-block ${subject.status === 'excellent' ? 'bg-green-500/20 text-green-400' :
+                        subject.status === 'good' ? 'bg-blue-500/20 text-blue-400' :
+                          'bg-yellow-500/20 text-yellow-400'
+                      }`}>
                       {subject.status === 'excellent' ? 'Excellent' : subject.status === 'good' ? 'Good' : 'Warning'}
                     </span>
                   </div>
                 </div>
                 <div className="w-full bg-white/15 rounded-full h-4 shadow-inner">
-                  <div 
+                  <div
                     className="h-4 rounded-full transition-all duration-500 shadow-lg"
-                    style={{ 
-                      width: \\%\,
+                    style={{
+                      width: `${subject.percentage}%`,
                       backgroundColor: subject.percentage >= 90 ? '#22c55e' : subject.percentage >= 75 ? '#3b82f6' : '#f59e0b'
                     }}
                   />
@@ -302,20 +305,20 @@ function AttendancePage() {
           <ResponsiveContainer width="100%" height={320}>
             <LineChart data={monthlyTrend}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.15)" />
-              <XAxis 
-                dataKey="month" 
-                stroke="#fff" 
-                tick={{ fill: '#fff', fontSize: 14, fontWeight: 600 }} 
+              <XAxis
+                dataKey="month"
+                stroke="#fff"
+                tick={{ fill: '#fff', fontSize: 14, fontWeight: 600 }}
               />
-              <YAxis 
-                stroke="#fff" 
-                tick={{ fill: '#fff', fontSize: 14, fontWeight: 600 }} 
-                domain={[0, 100]} 
+              <YAxis
+                stroke="#fff"
+                tick={{ fill: '#fff', fontSize: 14, fontWeight: 600 }}
+                domain={[0, 100]}
               />
-              <Tooltip 
-                contentStyle={{ 
-                  backgroundColor: 'rgba(0,0,0,0.85)', 
-                  border: '2px solid rgba(255,255,255,0.3)', 
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: 'rgba(0,0,0,0.85)',
+                  border: '2px solid rgba(255,255,255,0.3)',
                   borderRadius: '12px',
                   padding: '12px',
                   fontSize: '14px',
@@ -323,11 +326,11 @@ function AttendancePage() {
                 }}
                 labelStyle={{ color: '#fff', fontWeight: 600 }}
               />
-              <Line 
-                type="monotone" 
-                dataKey="percentage" 
-                stroke="#8b5cf6" 
-                strokeWidth={3} 
+              <Line
+                type="monotone"
+                dataKey="percentage"
+                stroke="#8b5cf6"
+                strokeWidth={3}
                 dot={{ fill: '#8b5cf6', r: 6 }}
                 activeDot={{ r: 8 }}
               />
@@ -351,7 +354,7 @@ function AttendancePage() {
           </div>
         )}
       </div>
-    </div>
+    </div >
   )
 }
 
